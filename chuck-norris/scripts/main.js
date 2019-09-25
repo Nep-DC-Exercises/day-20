@@ -1,6 +1,16 @@
 "use strict";
 
-const chuckQuotesForm = document.querySelector("#chuckQuotesForm")
+const chuckQuotesForm = document.querySelector("#chuckQuotesForm");
+const modalClose = document.querySelector(".modal__close")
+
+function toggleModal() {
+    const modalWrapper = document.querySelector(".wrapper--modal");
+    modalWrapper.classList.toggle("open");
+}
+
+modalClose.addEventListener("click", function(){
+    toggleModal();
+})
 
 chuckQuotesForm.addEventListener("submit", function(event) {
     event.preventDefault(); // default behavior is to reload the page
@@ -11,10 +21,9 @@ chuckQuotesForm.addEventListener("submit", function(event) {
 // Create a function to update the quote text in the DOM
 function updateChuckSays(category) {
     const chuckQuote = get(`https://api.chucknorris.io/jokes/random?category=${category}`);
-
     chuckQuote.then(function(quote){
         chuckSays.innerHTML = quote.value;
-        // chuckImage.src = quote.icon_url;
+        toggleModal();
     })
 }
 
